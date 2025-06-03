@@ -54,15 +54,6 @@ Use the output from Phase 1 to build a web-based interactive adventure game.
 
 ---
 
-## 📦 Deliverables
-
-1. ✅ **Project ZIP**: Full source code and dependencies  
-2. 🧾 **Example Quest**:  
-   - Input: `Lore Document`  
-   - Output: `domain.pddl`, `problem.pddl`, and HTML interface
-
----
-
 ## 🚀 Getting Started
 
 ```bash
