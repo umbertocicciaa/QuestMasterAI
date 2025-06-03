@@ -56,18 +56,60 @@ Use the output from Phase 1 to build a web-based interactive adventure game.
 
 ## 🚀 Getting Started
 
-```bash
-# Clone the repository
-git clone https://github.com/umbertocicciaa/QuestMasterAI.git questmaster
-cd questmaster
+### Installation & Setup
 
-# (Optional) Set up virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+1. **Clone the Repository**
 
-# Install dependencies
-pip install -r requirements.txt
+   - ```bash
+     git clone https://github.com/umbertocicciaa/QuestMasterAI.git questmaster
+     cd questmaster
+     ```
 
-# Run the main script
-python main.py
-```
+2. **Install CMake**
+   - **macOS:**  
+
+     ```bash
+     brew install cmake
+     ```
+
+   - **Linux (Debian/Ubuntu):**  
+
+     ```bash
+     sudo apt-get install cmake
+     ```
+
+   - **Windows:**  
+     [Download and install CMake](https://cmake.org/download/).
+
+3. **Download & Set Up Fast Downward Planner**
+   - [Download Fast Downward](https://www.fast-downward.org/latest/releases/24.06/).
+   - Extract it into the project root: `questmaster/fast-downward-24.06.1`.
+   - **Build Fast Downward:**
+
+     - ```bash
+       cd fast-downward-24.06.1
+       python build.py
+       cd ..
+       ```
+
+4. **Set Up Python Virtual Environment (Recommended)**
+
+   - ```bash
+     python -m venv venv
+     # Activate on macOS/Linux
+     source venv/bin/activate
+     # Activate on Windows
+     venv\Scripts\activate
+     ```
+
+5. **Install Python Dependencies**
+
+   - ```bash
+     pip install -r requirements.txt
+     ```
+
+6. **Run the Main Script**
+
+   - ```bash
+     python main.py
+     ```
