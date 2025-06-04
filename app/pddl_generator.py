@@ -3,12 +3,14 @@ from pathlib import Path
 import subprocess
 import logging
 from langchain_ollama import OllamaLLM
+import os
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
+MODEL_NAME = os.environ.get("OLLAMA_MODEL", "llama3.2")
 
 LORE_PATH = Path("data/lore.json")
 DOMAIN_PATH = Path("data/domain.pddl")
@@ -100,7 +102,7 @@ def validate_plan(domain_path, problem_path) -> tuple[bool, str]:
     return "Solution found" in output or "Plan found" in output, result.stderr
 
 if __name__ == "__main__":
-    llm = OllamaLLM(model="llama3.2")
+    llm = OllamaLLM(model=MODEL_NAME)
 
     lore = load_lore()
     response = generate_pddl_with_ollama(lore, llm)
