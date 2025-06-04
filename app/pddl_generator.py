@@ -10,7 +10,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
-MODEL_NAME = os.environ.get("OLLAMA_MODEL", "deepseek-r1")
+MODEL_NAME = os.environ.get("OLLAMA_MODEL", "llama3")
 
 LORE_PATH = Path("data/lore.json")
 NEW_LORE_PATH = Path("data/new_lore.json")

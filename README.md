@@ -95,11 +95,11 @@ Use the output from Phase 1 to build a web-based interactive adventure game.
 4. **Set Up Python Virtual Environment (Recommended)**
 
    - ```bash
-     python -m venv venv
+     python3 -m venv .venv
      # Activate on macOS/Linux
-     source venv/bin/activate
+     source .venv/bin/activate
      # Activate on Windows
-     venv\Scripts\activate
+     .venv\Scripts\activate
      ```
 
 5. **Install Python Dependencies**
@@ -108,7 +108,19 @@ Use the output from Phase 1 to build a web-based interactive adventure game.
      pip install -r requirements.txt
      ```
 
-6. **Run Scripts**
+6. **Install Ollama locally**
+    
+     - **Activate on Linux** 
+    ```bash
+     curl -fsSL https://ollama.com/install.sh | sh
+    ```
+    - **Activate on macOS**
+     [macOs] (https://ollama.com/download/mac)
+
+     - **Activate on Windows**
+     [Windows](https://ollama.com/download/windows)
+     
+7. **Run Scripts**
 
    - ```bash
      python <script-name>
