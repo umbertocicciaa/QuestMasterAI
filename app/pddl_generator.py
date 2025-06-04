@@ -25,7 +25,7 @@ def generate_pddl_with_ollama(lore: str) -> str:
     logging.info("Generating PDDL using Ollama...")
     prompt = f"""
     You are a Fast downard PDDL expert. Based on the following fantasy quest lore,
-    generate a complete PDDL domain and problem file.
+    generate a complete PDDL domain and problem file. Do not add any other comments.
 
     LORE:
     {lore}
