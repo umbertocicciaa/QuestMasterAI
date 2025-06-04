@@ -76,13 +76,11 @@ def reflect_on_invalid_pddl(lore: str, domain_text: str, problem_text: str, vali
                  Problem:
                  {problem_text}
                  
-                 This is the output from Fast Downward:
+                 This is the output from past Fast Downward:
                  {validation_output}
                  
-                 The lore is:
-                 {lore}
                  
-                 Reflect on the lore and the PDDL files, and generate a new domain and problem that should produce a valid plan.                 
+                 Fix files for produce a valid plan.                 
                  Output the domain and problem files one after the other using these delimiters:
 
                  <DOMAIN_PDDL>
