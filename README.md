@@ -60,23 +60,23 @@ Use the output from Phase 1 to build a web-based interactive adventure game.
 
 1. **Clone the Repository**
 
-   - ```bash
+    ```bash
      git clone https://github.com/umbertocicciaa/QuestMasterAI.git questmaster
      cd questmaster
-     ```
+    ```
 
 2. **Install CMake**
    - **macOS:**  
 
-     ```bash
+    ```bash
      brew install cmake
-     ```
+    ```
 
    - **Linux (Debian/Ubuntu):**  
 
-     ```bash
+    ```bash
      sudo apt-get install cmake
-     ```
+    ```
 
    - **Windows:**  
      [Download and install CMake](https://cmake.org/download/).
@@ -86,42 +86,44 @@ Use the output from Phase 1 to build a web-based interactive adventure game.
    - Extract it into the project root: `questmaster/fast-downward-24.06.1`.
    - **Build Fast Downward:**
 
-     - ```bash
+      ```bash
        cd fast-downward-24.06.1
        python build.py
        cd ..
-       ```
+      ```
 
 4. **Set Up Python Virtual Environment (Recommended)**
 
-   - ```bash
+    ```bash
      python3 -m venv .venv
      # Activate on macOS/Linux
      source .venv/bin/activate
      # Activate on Windows
      .venv\Scripts\activate
-     ```
+    ```
 
 5. **Install Python Dependencies**
 
-   - ```bash
+    ```bash
      pip install -r requirements.txt
-     ```
+    ```
 
 6. **Install Ollama locally**
-    
-     - **Activate on Linux** 
+
+    - **Activate on Linux**
+
     ```bash
      curl -fsSL https://ollama.com/install.sh | sh
     ```
-    - **Activate on macOS**
-     [macOs] (https://ollama.com/download/mac)
 
-     - **Activate on Windows**
+    - **Activate on macOS**
+     [macOs](https://ollama.com/download/mac)
+
+    - **Activate on Windows**
      [Windows](https://ollama.com/download/windows)
-     
+
 7. **Run Scripts**
 
-   - ```bash
-     python <script-name>
-     ```
+    ```bash
+     python "script-name.py"
+    ```
