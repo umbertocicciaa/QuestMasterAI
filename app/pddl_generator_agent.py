@@ -14,14 +14,22 @@ logging.basicConfig(
 def generate_pddl_with_ollama(lore: str, llm: OllamaLLM) -> str:
     logging.info("Generating PDDL using Ollama...")
     prompt = f"""
-    Sei un modellatore PDDL. Data questa descrizione di una quest, genera:
-    1. Un file DOMAIN.PDDL con predicati e azioni, ciascuna con commenti.
-    2. Un file PROBLEM.PDDL con lo stato iniziale e goal coerente con il dominio.
+    You are a PDDL modeler. Given the following quest description, generate:
+    1. A DOMAIN.PDDL file with predicates and actions, each with comments.
+    2. A PROBLEM.PDDL file with an initial state and goal consistent with the domain.
     
     Lore:
     {json.dumps(lore, indent=2)}
     
-    Usa i delimitatori <DOMAIN_PDDL> e </DOMAIN_PDDL> per il dominio, e <PROBLEM_PDDL> e </PROBLEM_PDDL> per il problema. Utiliza solo i caratteri ASCII standard e non usare caratteri speciali o emoji per la tua risposta.
+    Return yor response like plain text in ASCII character inside 
+    <DOMAIN_PDDL> 
+    
+    </DOMAIN_PDDL> 
+    blocks for the domain, 
+    and 
+    <PROBLEM_PDDL>  
+    
+    </PROBLEM_PDDL> for the problem.
     """
     response = llm.invoke(prompt)
     logging.info("OllamLLM process completed.")
@@ -41,6 +49,5 @@ while True:
     else:
         logging.warning("Plan is invalid! ❌")
         logging.info("Reflecting on invalid PDDL...")
-        new_pddl = reflect_on_invalid_pddl(lore, load_domain(), load_problem(), llm)
+        new_pddl = reflect_on_invalid_pddl(lore, load_domain(), load_problem(), validation_output, llm)
         extract_and_save_pddl(new_pddl)
-        lore = load_new_lore()

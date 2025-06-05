@@ -11,24 +11,34 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
-def reflect_on_invalid_pddl(lore: str, domain_text: str, problem_text: str, llm: OllamaLLM) -> str:
+def reflect_on_invalid_pddl(lore: str, domain_text: str, problem_text: str, validation_output: str, llm: OllamaLLM) -> str:
     logging.info("Generating new PDDL using Ollama...")
     prompt = f"""
-    Sei un agente riflessivo che aiuta a correggere modelli PDDL. È stato generato il seguente dominio e problema, ma nessun piano valido è stato trovato.
-
-    Analizza i due file PDDL e suggerisci una versione corretta e coerente con la seguente Lore:
+    You are a pddl expert that helps correct PDDL models files. The following domain and problem were generated, but no valid plan was found.
+    Analyze the two PDDL files and the previous error, and suggest a corrected and consistent version according to the following Lore:
 
     LORE:
     {json.dumps(lore, indent=2)}
 
-    DOMAIN.PDDL ORIGINALE:
+    ORIGINAL DOMAIN.PDDL:
     {domain_text}
 
-    PROBLEM.PDDL ORIGINALE:
+    ORIGINAL PROBLEM.PDDL:
     {problem_text}
 
-    Usa i delimitatori <DOMAIN_PDDL> e </DOMAIN_PDDL> per il dominio, e <PROBLEM_PDDL> e </PROBLEM_PDDL> per il problema. Utiliza solo i caratteri ASCII standard e non usare caratteri speciali o emoji per la tua risposta.
-    (Se necessario) Fornisci una nuova LORE aggiornata dentro il blocco <LORE> e </LORE>.
+    PREVIOUS VALIDATION ERROR:
+    {validation_output}
+
+    Return yor response like plain text in ASCII character inside 
+    <DOMAIN_PDDL> 
+    
+    </DOMAIN_PDDL> 
+    blocks for the domain, 
+    and 
+    <PROBLEM_PDDL>  
+    
+    </PROBLEM_PDDL> for the problem.
+    
     """
     response = llm.invoke(prompt)
     logging.info(f"Response from OllamaLLM:\n{response}")
