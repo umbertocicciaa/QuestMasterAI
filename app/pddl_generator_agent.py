@@ -1,26 +1,15 @@
 import json
-from pathlib import Path
 import logging
 from langchain_ollama import OllamaLLM
-import os
 
+from constant import MODEL_NAME, load_domain, load_lore, load_new_lore, load_problem
+from reflect_agent import reflect_on_invalid_pddl, validate_plan
 from utils import extract_and_save_pddl
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
-
-MODEL_NAME = os.environ.get("OLLAMA_MODEL", "codellama:7b")
-
-LORE_PATH = Path("data/lore.json")
-DOMAIN_PATH = Path("data/domain.pddl")
-PROBLEM_PATH = Path("data/problem.pddl")
-
-def load_lore() -> str:
-    logging.info(f"Loading lore from {LORE_PATH}")
-    lore = LORE_PATH.read_text()
-    return lore
 
 def generate_pddl_with_ollama(lore: str, llm: OllamaLLM) -> str:
     logging.info("Generating PDDL using Ollama...")
@@ -43,3 +32,15 @@ llm = OllamaLLM(model=MODEL_NAME)
 lore = load_lore()
 response = generate_pddl_with_ollama(lore, llm)
 extract_and_save_pddl(response)
+
+while True:
+    valid, validation_output = validate_plan()
+    if valid:
+        logging.info("Plan is valid! ✅")
+        break
+    else:
+        logging.warning("Plan is invalid! ❌")
+        logging.info("Reflecting on invalid PDDL...")
+        new_pddl = reflect_on_invalid_pddl(lore, load_domain(), load_problem(), llm)
+        extract_and_save_pddl(new_pddl)
+        lore = load_new_lore()

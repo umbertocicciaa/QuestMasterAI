@@ -1,16 +1,15 @@
-from pathlib import Path
 import streamlit as st
 import json
 
-STORY_PATH = Path("data/story.json")
+from constant import load_story
 
 st.set_page_config(page_title="QuestMaster", layout="centered")
 st.title("⚔️ QuestMaster")
 
 
 @st.cache_data
-def load_story():
-    story = STORY_PATH.read_text(encoding="utf-8")
+def load_stories():
+    story : str = load_story()
     return json.loads(story)
 
 if "current_state" not in st.session_state:
@@ -19,7 +18,7 @@ if "current_state" not in st.session_state:
 def change_state(next_state):
     st.session_state.current_state = next_state
 
-story = load_story()
+story = load_stories()
 state = st.session_state.current_state
 
 if state not in story:

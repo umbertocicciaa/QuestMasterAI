@@ -1,16 +1,15 @@
 import json
 import logging
-import os
 import subprocess
 
 from langchain_ollama import OllamaLLM
+
+from constant import DOMAIN_PATH, MODEL_NAME, PROBLEM_PATH
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
-
-MODEL_NAME = os.environ.get("OLLAMA_MODEL", "llama3")
 
 def reflect_on_invalid_pddl(lore: str, domain_text: str, problem_text: str, llm: OllamaLLM) -> str:
     logging.info("Generating new PDDL using Ollama...")
@@ -36,8 +35,10 @@ def reflect_on_invalid_pddl(lore: str, domain_text: str, problem_text: str, llm:
     logging.info("OllamaLLM process completed.")
     return response
 
-def validate_plan(domain_path, problem_path) -> tuple[bool, str]:
+def validate_plan() -> tuple[bool, str]:
     logging.info("Validating plan with Fast Downward...")    
+    domain_path = DOMAIN_PATH
+    problem_path = PROBLEM_PATH
     command = f"python fast-downward-24.06.1/fast-downward.py {domain_path} {problem_path} --search \"astar(blind())\""
     result = subprocess.run(command, capture_output=True, text=True, shell=True)
     output = result.stdout + result.stderr
