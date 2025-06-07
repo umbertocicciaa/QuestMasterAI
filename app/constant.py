@@ -3,12 +3,13 @@ from pathlib import Path
 
 MODEL_NAME = os.environ.get("OLLAMA_MODEL", "codellama:7b")
 
-LORE_PATH = Path("data/lore.json")
-NEW_LORE_PATH = Path("data/new_lore.json")
-DOMAIN_PATH = Path("data/domain.pddl")
-PROBLEM_PATH = Path("data/problem.pddl")
-STORY_PATH = Path("data/story.json")
-EXAMPLE = Path("data/example_structure.json")
+BASE_DIR = Path(__file__).resolve().parent.parent
+LORE_PATH = Path(f"{BASE_DIR}/data/lore.json")
+NEW_LORE_PATH = Path(f"{BASE_DIR}/data/new_lore.json")
+DOMAIN_PATH = Path(f"{BASE_DIR}/data/domain.pddl")
+PROBLEM_PATH = Path(f"{BASE_DIR}/data/problem.pddl")
+STORY_PATH = Path(f"{BASE_DIR}/data/story.json")
+EXAMPLE = Path(f"{BASE_DIR}/data/example_structure.json")
 
 def load_lore() -> str:
     if LORE_PATH.exists():

@@ -1,6 +1,7 @@
 import json
 import logging
 import subprocess
+from pathlib import Path
 
 from langchain_ollama import OllamaLLM
 
@@ -49,7 +50,8 @@ def validate_plan() -> tuple[bool, str]:
     logging.info("Validating plan with Fast Downward...")    
     domain_path = DOMAIN_PATH
     problem_path = PROBLEM_PATH
-    command = f"python fast-downward-24.06.1/fast-downward.py {domain_path} {problem_path} --search \"astar(blind())\""
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    command = f"{BASE_DIR}/python fast-downward-24.06.1/fast-downward.py {domain_path} {problem_path} --search \"astar(blind())\""
     result = subprocess.run(command, capture_output=True, text=True, shell=True)
     output = result.stdout + result.stderr
     logging.info(f"Fast Downward output:\n{result.stdout}\n{result.stderr}")
