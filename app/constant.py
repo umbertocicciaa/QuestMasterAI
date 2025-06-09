@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-MODEL_NAME = os.environ.get("OLLAMA_MODEL", "codellama:7b")
+MODEL_NAME = os.environ.get("OLLAMA_MODEL", "llama3.2")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 LORE_PATH = Path(f"{BASE_DIR}/data/lore.json")
@@ -10,6 +10,8 @@ DOMAIN_PATH = Path(f"{BASE_DIR}/data/domain.pddl")
 PROBLEM_PATH = Path(f"{BASE_DIR}/data/problem.pddl")
 STORY_PATH = Path(f"{BASE_DIR}/data/story.json")
 EXAMPLE = Path(f"{BASE_DIR}/data/example_structure.json")
+EXAMPLE_DOMAIN = Path(f"{BASE_DIR}/resources/valid_domain.pddl")
+EXAMPLE_PROBLEM = Path(f"{BASE_DIR}/resources/valid_problem.pddl")
 
 def load_lore() -> str:
     if LORE_PATH.exists():
@@ -68,3 +70,15 @@ def load_example() -> str:
         return EXAMPLE.read_text()
     else:
         raise FileNotFoundError(f"Example file not found at {EXAMPLE}")
+
+def load_example_domain() -> str:
+    if EXAMPLE_DOMAIN.exists():
+        return EXAMPLE_DOMAIN.read_text()
+    else:
+        raise FileNotFoundError(f"Example file not found at {EXAMPLE_DOMAIN}")
+    
+def load_example_problem() -> str:
+    if EXAMPLE_PROBLEM.exists():
+        return EXAMPLE_PROBLEM.read_text()
+    else:
+        raise FileNotFoundError(f"Example file not found at {EXAMPLE_PROBLEM}")

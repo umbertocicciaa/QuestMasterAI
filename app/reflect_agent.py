@@ -1,11 +1,10 @@
 import json
 import logging
 import subprocess
-from pathlib import Path
 
 from langchain_ollama import OllamaLLM
 
-from constant import DOMAIN_PATH, MODEL_NAME, PROBLEM_PATH
+from constant import BASE_DIR, DOMAIN_PATH, MODEL_NAME, PROBLEM_PATH, load_example_domain, load_example_problem
 
 logging.basicConfig(
     level=logging.INFO,
@@ -39,7 +38,11 @@ def reflect_on_invalid_pddl(lore: str, domain_text: str, problem_text: str, vali
     <PROBLEM_PDDL>  
     
     </PROBLEM_PDDL> for the problem.
-    
+    In your response pay attention to the pddl syntax. Each pddl block is encapsulated in ( and ). Example (define (guard-awake ?location) A guard is awake at the specified location)
+    Here an example of valid domain:
+    {load_example_domain()}
+    Here an example of valid problem:
+    {load_example_problem()}
     """
     response = llm.invoke(prompt)
     logging.info(f"Response from OllamaLLM:\n{response}")
@@ -50,8 +53,7 @@ def validate_plan() -> tuple[bool, str]:
     logging.info("Validating plan with Fast Downward...")    
     domain_path = DOMAIN_PATH
     problem_path = PROBLEM_PATH
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    command = f"{BASE_DIR}/python fast-downward-24.06.1/fast-downward.py {domain_path} {problem_path} --search \"astar(blind())\""
+    command = f"python3 {BASE_DIR}/fast-downward-24.06.1/fast-downward.py {domain_path} {problem_path} --search \"astar(blind())\""
     result = subprocess.run(command, capture_output=True, text=True, shell=True)
     output = result.stdout + result.stderr
     logging.info(f"Fast Downward output:\n{result.stdout}\n{result.stderr}")
