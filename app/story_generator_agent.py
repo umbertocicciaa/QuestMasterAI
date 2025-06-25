@@ -1,39 +1,44 @@
 import logging
-import json, re, ollama
+import json
 
-from constant import MODEL_NAME, load_domain, load_example, load_lore, load_problem, save_lore
+from constant import get_model_name, load_domain, load_example, load_lore, load_problem, save_lore
+from openai import OpenAI
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
-lore = json.loads(load_lore())
-domain = load_domain()
-problem = load_problem()
-example_structure = load_example()
+def generate_story(client: OpenAI) -> None:
+    lore = json.loads(load_lore())
+    domain = load_domain()
+    problem = load_problem()
+    example_structure = load_example()
+    
+    logging.info("Generazione storia!..")
+    
+    prompt = f"""Sei uno storyteller interattivo.
+    Dati questi file PDDL e questa lore, crea una rappresentazione JSON della storia come macchina a stati finiti (FSM). 
 
+    Lore: {json.dumps(lore, indent=2)}
 
-prompt = f"""Sei uno storyteller interattivo.
-Dati questi file PDDL e questa lore, crea una rappresentazione JSON della storia come macchina a stati finiti (FSM). 
+    DOMAIN.PDDL:
+    {domain}
 
-Lore: {json.dumps(lore, indent=2)}
+    PROBLEM.PDDL:
+    {problem}
 
-DOMAIN.PDDL:
-{domain}
+    Genera uno story.json con la seguente struttura e niente altro. Fai riferimento ad una struttura esempio rendendola più originale e dinamica:
+    STRUTTURA ESEMPIO:
+    {example_structure}
+    """
 
-PROBLEM.PDDL:
-{problem}
+    response = client.responses.create(
+        model=get_model_name(),
+        input=prompt
+    )
 
-Genera uno story.json con la seguente struttura e niente altro. Fai riferimento ad una struttura esempio rendendola più originale e dinamica:
-STRUTTURA ESEMPIO:
-{example_structure}
-"""
+    story = json.loads(response.output_text)
 
-response = ollama.chat(model=MODEL_NAME, messages=[{"role":"user","content":prompt}])
-
-json_text = re.search(r"\{[\s\S]*\}", response['message']['content']).group(0)
-story = json.loads(json_text)
-
-save_lore(json.dumps(story, indent=2))
-print("story.json generato.")
+    save_lore(json.dumps(story, indent=2))
+    logging.info("story.json generato.")

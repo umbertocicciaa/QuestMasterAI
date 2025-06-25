@@ -2,17 +2,17 @@ import json
 import logging
 import subprocess
 
-from langchain_ollama import OllamaLLM
+from openai import OpenAI
 
-from constant import BASE_DIR, DOMAIN_PATH, MODEL_NAME, PROBLEM_PATH, load_example_domain, load_example_problem
+from constant import BASE_DIR, DOMAIN_PATH, PROBLEM_PATH, get_model_name, load_example_domain, load_example_problem
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
-def reflect_on_invalid_pddl(lore: str, domain_text: str, problem_text: str, validation_output: str, llm: OllamaLLM) -> str:
-    logging.info("Generating new PDDL using Ollama...")
+def reflect_on_invalid_pddl(lore: str, domain_text: str, problem_text: str, validation_output: str, client: OpenAI) -> str:
+    logging.info("Generating new PDDL...")
     prompt = f"""
     You are a pddl expert that helps correct PDDL models files. The following domain and problem were generated, but no valid plan was found.
     Analyze the two PDDL files and the previous error, and suggest a corrected and consistent version according to the following Lore:
@@ -44,10 +44,13 @@ def reflect_on_invalid_pddl(lore: str, domain_text: str, problem_text: str, vali
     Here an example of valid problem:
     {load_example_problem()}
     """
-    response = llm.invoke(prompt)
+    response = client.responses.create(
+        model=get_model_name(),
+        input=prompt
+    )
     logging.info(f"Response from OllamaLLM:\n{response}")
     logging.info("OllamaLLM process completed.")
-    return response
+    return response.output_text
 
 def validate_plan() -> tuple[bool, str]:
     logging.info("Validating plan with Fast Downward...")    
@@ -58,5 +61,3 @@ def validate_plan() -> tuple[bool, str]:
     output = result.stdout + result.stderr
     logging.info(f"Fast Downward output:\n{result.stdout}\n{result.stderr}")
     return "Solution found" in output or "Plan found" in output, result.stderr
-
-llm = OllamaLLM(model=MODEL_NAME)

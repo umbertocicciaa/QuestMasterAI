@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-MODEL_NAME = os.environ.get("OLLAMA_MODEL", "llama3.2")
+MODEL_NAME = os.environ.get("CHATGPT_MODEL")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 LORE_PATH = Path(f"{BASE_DIR}/data/lore.json")
@@ -82,3 +82,9 @@ def load_example_problem() -> str:
         return EXAMPLE_PROBLEM.read_text()
     else:
         raise FileNotFoundError(f"Example file not found at {EXAMPLE_PROBLEM}")
+
+def get_model_name() -> str:
+    if MODEL_NAME:
+        return MODEL_NAME
+    else:
+        raise ValueError("MODEL_NAME environment variable is not set. Please set it to the desired model name.")
