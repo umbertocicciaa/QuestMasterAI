@@ -108,20 +108,6 @@ Use the output from Phase 1 to build a web-based interactive adventure game.
      pip install -r requirements.txt
     ```
 
-6. **Install Ollama locally**
-
-    - **Activate on Linux**
-
-    ```bash
-     curl -fsSL https://ollama.com/install.sh | sh
-    ```
-
-    - **Activate on macOS**
-     [macOs](https://ollama.com/download/mac)
-
-    - **Activate on Windows**
-     [Windows](https://ollama.com/download/windows)
-
 7. **Run Scripts**
 
     ```bash

@@ -1,56 +1,40 @@
-(define
-    (domain construction)
-    (:extends building)
-    (:requirements :strips :typing)
-    (:types
-        site material - object
-        bricks cables windows - material
-    )
-    (:constants mainsite - site)
+(define (domain simple-adventure)
+  (:requirements :strips :typing)
+  (:types location)
 
-    ;(:domain-variables ) ;deprecated
+  (:predicates
+    (at ?loc - location)
+    (has_treasure)
+  )
 
-    (:predicates
-        (walls-built ?s - site)
-        (windows-fitted ?s - site)
-        (foundations-set ?s - site)
-        (cables-installed ?s - site)
-        (site-built ?s - site)
-        (on-site ?m - material ?s - site)
-        (material-used ?m - material)
-    )
+  ;; Azioni per muoversi tra location
+  (:action go_hut
+    :precondition (at start)
+    :effect (and (not (at start)) (at hut))
+  )
 
-    (:timeless (foundations-set mainsite))
+  (:action go_cave_from_start
+    :precondition (at start)
+    :effect (and (not (at start)) (at cave))
+  )
 
-    ;(:safety
-        ;(forall
-        ;    (?s - site) (walls-built ?s)))
-        ;deprecated
+  (:action follow_map
+    :precondition (at hut)
+    :effect (and (not (at hut)) (at cave))
+  )
 
-    (:action BUILD-WALL
-        :parameters (?s - site ?b - bricks)
-        :precondition (and
-            (on-site ?b ?s)
-            (foundations-set ?s)
-            (not (walls-built ?s))
-            (not (material-used ?b))
-        )
-        :effect (and
-            (walls-built ?s)
-            (material-used ?b)
-        )
-        ; :expansion ;deprecated
-    )
+  (:action fight_serpent
+    :precondition (at cave)
+    :effect (and (not (at cave)) (at fight))
+  )
 
-    (:axiom
-        :vars (?s - site)
-        :context (and
-            (walls-built ?s)
-            (windows-fitted ?s)
-            (cables-installed ?s)
-        )
-        :implies (site-built ?s)
-    )
+  (:action open_chest
+    :precondition (at fight)
+    :effect (has_treasure)
+  )
 
-    ;Actions omitted for brevity
+  (:action flee_cave
+    :precondition (at cave)
+    :effect (and (not (at cave)) (at beach_end))
+  )
 )

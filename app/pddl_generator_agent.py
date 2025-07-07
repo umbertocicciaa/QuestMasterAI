@@ -1,6 +1,7 @@
 import json
 import logging
 
+from generate_frontend import generate_frontend
 from story_generator_agent import generate_story
 from constant import get_model_name, load_domain, load_example_domain, load_example_problem, load_lore, load_new_lore, load_problem
 from reflect_agent import reflect_on_invalid_pddl, validate_plan
@@ -56,6 +57,7 @@ while True:
     if valid:
         logging.info("Plan is valid! ✅")
         generate_story(client)
+        generate_frontend(client)
         break
     else:
         logging.warning("Plan is invalid! ❌")

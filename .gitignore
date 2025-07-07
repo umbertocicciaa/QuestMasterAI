@@ -2,3 +2,4 @@
 __pycache__
 fast-downward*
 data/*.pddl
+data/story.json

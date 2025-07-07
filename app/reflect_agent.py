@@ -48,8 +48,8 @@ def reflect_on_invalid_pddl(lore: str, domain_text: str, problem_text: str, vali
         model=get_model_name(),
         input=prompt
     )
-    logging.info(f"Response from OllamaLLM:\n{response}")
-    logging.info("OllamaLLM process completed.")
+    logging.info(f"Response from Chatgpt:\n{response}")
+    logging.info("Chatgpt process completed.")
     return response.output_text
 
 def validate_plan() -> tuple[bool, str]:

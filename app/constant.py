@@ -9,9 +9,11 @@ NEW_LORE_PATH = Path(f"{BASE_DIR}/data/new_lore.json")
 DOMAIN_PATH = Path(f"{BASE_DIR}/data/domain.pddl")
 PROBLEM_PATH = Path(f"{BASE_DIR}/data/problem.pddl")
 STORY_PATH = Path(f"{BASE_DIR}/data/story.json")
-EXAMPLE = Path(f"{BASE_DIR}/data/example_structure.json")
+EXAMPLE = Path(f"{BASE_DIR}/resources/story_example.json")
 EXAMPLE_DOMAIN = Path(f"{BASE_DIR}/resources/valid_domain.pddl")
 EXAMPLE_PROBLEM = Path(f"{BASE_DIR}/resources/valid_problem.pddl")
+PLAN_PATH = Path(f"{BASE_DIR}/sas_plan")
+FRONTEND_PATH = Path(f"{BASE_DIR}/app/frontend.py")
 
 def load_lore() -> str:
     if LORE_PATH.exists():
@@ -51,6 +53,12 @@ def load_problem() -> str:
     else:
         raise FileNotFoundError(f"Problem file not found at {PROBLEM_PATH}")
 
+def load_plan() -> str:
+    if PLAN_PATH.exists():
+        return PLAN_PATH.read_text()
+    else:
+        raise FileNotFoundError(f"Plan file not found at {PLAN_PATH}")
+
 def save_problem(problem: str) -> None:
     PROBLEM_PATH.write_text(problem)
     print(f"Problem saved to {PROBLEM_PATH}")
@@ -88,3 +96,7 @@ def get_model_name() -> str:
         return MODEL_NAME
     else:
         raise ValueError("MODEL_NAME environment variable is not set. Please set it to the desired model name.")
+    
+def save_frontend(frontend: str) -> None:
+    FRONTEND_PATH.write_text(frontend)
+    print(f"Frontend saved to {FRONTEND_PATH}")

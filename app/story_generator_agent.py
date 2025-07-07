@@ -1,7 +1,7 @@
 import logging
 import json
 
-from constant import get_model_name, load_domain, load_example, load_lore, load_problem, save_lore
+from constant import get_model_name, load_domain, load_example, load_lore, load_plan, load_problem, save_lore
 from openai import OpenAI
 
 logging.basicConfig(
@@ -13,6 +13,7 @@ def generate_story(client: OpenAI) -> None:
     lore = json.loads(load_lore())
     domain = load_domain()
     problem = load_problem()
+    plan = load_plan()
     example_structure = load_example()
     
     logging.info("Generazione storia!..")
@@ -27,6 +28,9 @@ def generate_story(client: OpenAI) -> None:
 
     PROBLEM.PDDL:
     {problem}
+
+    SAS_PLAN
+    {plan}
 
     Genera uno story.json con la seguente struttura e niente altro. Fai riferimento ad una struttura esempio rendendola più originale e dinamica:
     STRUTTURA ESEMPIO:

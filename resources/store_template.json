@@ -2,8 +2,7 @@
   "start": {
     "text": "Ti svegli su una spiaggia deserta. All'orizzonte vedi una capanna e una grotta.",
     "actions": {
-      "Vai verso la capanna": "hut",
-      "Esplora la grotta": "cave"
+      "Vai verso la capanna": "hut"
     }
   },
   "hut": {
@@ -15,8 +14,7 @@
   "cave": {
     "text": "Dentro la grotta buia, un serpente gigante blocca il passaggio.",
     "actions": {
-      "Affronta il serpente": "fight",
-      "Fuggi": "beach_end"
+      "Affronta il serpente": "fight"
     }
   },
   "fight": {
@@ -27,10 +25,6 @@
   },
   "victory": {
     "text": "Hai trovato il tesoro nascosto! Sei ricco.",
-    "actions": {}
-  },
-  "beach_end": {
-    "text": "Torni sulla spiaggia. Il mistero del tesoro resta irrisolto.",
     "actions": {}
   }
 }
