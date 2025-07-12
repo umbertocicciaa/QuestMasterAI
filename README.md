@@ -108,8 +108,9 @@ Use the output from Phase 1 to build a web-based interactive adventure game.
      pip install -r requirements.txt
     ```
 
-7. **Run Scripts**
+6. **Start application**
 
     ```bash
-     python "script-name.py"
+     chmod u+x start.sh
+     ./start.sh
     ```
