@@ -42,7 +42,7 @@ def generate_story(client: OpenAI) -> None:
         input=prompt
     )
 
-    story = json.loads(response.output_text)
+    story = response.output_text
 
-    save_lore(json.dumps(story, indent=2))
+    save_lore(story)
     logging.info("story.json generato.")

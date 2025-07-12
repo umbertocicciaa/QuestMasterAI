@@ -3,7 +3,6 @@ from openai import OpenAI
 
 from constant import get_model_name, load_story, save_frontend
 
-
 def extract_and_save_frontend(response: str) -> None:
     logging.info("Extracting frontend blocks from response...")
     
@@ -37,3 +36,4 @@ def generate_frontend(client: OpenAI) -> None:
     )
     logging.info("Chatgpt process completed.")
     logging.info(f"Response: {response}")
+    extract_and_save_frontend(response.output_text)
