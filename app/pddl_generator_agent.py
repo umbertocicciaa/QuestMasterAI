@@ -1,9 +1,8 @@
-import json
 import logging
 
 from generate_frontend import generate_frontend
 from story_generator_agent import generate_story
-from constant import get_model_name, load_domain, load_example_domain, load_example_problem, load_lore, load_new_lore, load_problem
+from constant import get_model_name, load_domain, load_example_domain, load_example_problem, load_lore, load_problem
 from reflect_agent import reflect_on_invalid_pddl, validate_plan
 from utils import extract_and_save_pddl
 
@@ -22,7 +21,7 @@ def generate_pddl(lore: str, client: OpenAI) -> str:
     2. A PROBLEM.PDDL file with an initial state and goal consistent with the domain.
     
     Lore:
-    {json.dumps(lore, indent=2)}
+    {lore}
     
     Return yor response like plain text in ASCII character inside 
     <DOMAIN_PDDL> 

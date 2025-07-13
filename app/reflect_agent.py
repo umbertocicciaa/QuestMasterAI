@@ -1,4 +1,3 @@
-import json
 import logging
 import subprocess
 
@@ -18,7 +17,7 @@ def reflect_on_invalid_pddl(lore: str, domain_text: str, problem_text: str, vali
     Analyze the two PDDL files and the previous error, and suggest a corrected and consistent version according to the following Lore:
 
     LORE:
-    {json.dumps(lore, indent=2)}
+    {lore}
 
     ORIGINAL DOMAIN.PDDL:
     {domain_text}

@@ -1,5 +1,4 @@
 import logging
-import json
 
 from constant import get_model_name, load_domain, load_example, load_lore, load_plan, load_problem, save_lore
 from openai import OpenAI
@@ -10,7 +9,7 @@ logging.basicConfig(
 )
 
 def generate_story(client: OpenAI) -> None:
-    lore = json.loads(load_lore())
+    lore = load_lore()
     domain = load_domain()
     problem = load_problem()
     plan = load_plan()
@@ -21,7 +20,7 @@ def generate_story(client: OpenAI) -> None:
     prompt = f"""Sei uno storyteller interattivo.
     Dati questi file PDDL e questa lore, crea una rappresentazione JSON della storia come macchina a stati finiti (FSM). 
 
-    Lore: {json.dumps(lore, indent=2)}
+    Lore: {lore}
 
     DOMAIN.PDDL:
     {domain}

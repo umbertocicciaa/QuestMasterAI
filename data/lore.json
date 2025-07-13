@@ -1,36 +1,36 @@
 {
   "start": {
-    "text": "Ti svegli su una spiaggia deserta. All'orizzonte vedi una capanna e una grotta.",
+    "text": "Ti risvegli in un mondo incantato, su una spiaggia deserta. Il sole sorge all'orizzonte, rivelando una capanna abbandonata e una grotta misteriosa.",
     "actions": {
-      "Vai verso la capanna": "hut",
-      "Esplora la grotta": "cave"
+      "Esplora la capanna": "hut",
+      "Avventurati verso la grotta": "cave"
     }
   },
   "hut": {
-    "text": "La capanna è abbandonata ma trovi una mappa che indica un tesoro nella grotta.",
+    "text": "La capanna è avvolta dal silenzio. Mentre esplori i suoi angoli polverosi, scopri una mappa antica che promette un tesoro nascosto nella grotta.",
     "actions": {
-      "Segui la mappa e vai alla grotta": "cave"
+      "Segui la mappa verso la grotta": "cave"
     }
   },
   "cave": {
-    "text": "Dentro la grotta buia, un serpente gigante blocca il passaggio.",
+    "text": "La grotta si apre in un buio inquietante, e un serpente enorme sbarrando il passaggio scruta con occhi famelici. La tua avventura si fa audace.",
     "actions": {
-      "Affronta il serpente": "fight",
-      "Fuggi": "beach_end"
+      "Affronta il serpente con coraggio": "fight",
+      "Fuggi verso la spiaggia": "beach_end"
     }
   },
   "fight": {
-    "text": "Sconfiggi il serpente con astuzia e trovi uno scrigno dorato.",
+    "text": "Con astuzia e determinazione, riesci a sconfiggere il serpente. Nel suo corpo giace uno scrigno dorato che scintilla nella penombra.",
     "actions": {
-      "Apri lo scrigno": "victory"
+      "Apri lo scrigno con trepidazione": "victory"
     }
   },
   "victory": {
-    "text": "Hai trovato il tesoro nascosto! Sei ricco.",
+    "text": "Hai finalmente trovato il tesoro nascosto! La tua vita cambierà per sempre, e i tuoi sogni si avvereranno.",
     "actions": {}
   },
   "beach_end": {
-    "text": "Torni sulla spiaggia. Il mistero del tesoro resta irrisolto.",
+    "text": "Ritorni sulla spiaggia, ma il mistero del tesoro ti ossessiona. Chissà quali avventure ti attendono oltre l'orizzonte.",
     "actions": {}
   }
 }

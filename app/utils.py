@@ -1,4 +1,3 @@
-import json
 import logging
 
 from constant import save_domain, save_new_lore, save_problem
@@ -17,7 +16,7 @@ def extract_and_save_pddl(response: str) -> None:
     
     try:
         lore_block = response.split("<LORE>")[1].split("</LORE>")[0].strip()
-        save_new_lore(json.dumps(lore_block))
+        save_new_lore(lore_block)
     except Exception:
         logging.error("Logging error while extracting Lore blocks.")
         return
