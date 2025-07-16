@@ -88,12 +88,14 @@ QuestMaster AI segue un'architettura multi-layered basata su agenti specializzat
 ### 3.2 Componenti Principali
 
 #### **Core Components**
+
 - **Configuration Management**: Gestione centralizzata delle configurazioni
 - **Logging System**: Sistema di logging strutturato con Rich e Structlog
 - **Exception Handling**: Gestione degli errori specializzata per dominio
 - **Data Models**: Modelli Pydantic per validazione e serializzazione
 
 #### **Services Layer**
+
 - **LLM Service**: Interfaccia con OpenAI GPT per generazione di contenuti
 - **Planner Service**: Integrazione con Fast Downward planner
 - **File Service**: Gestione I/O di file e persistenza
@@ -143,12 +145,14 @@ QuestMaster AI segue un'architettura multi-layered basata su agenti specializzat
 **Responsabilità**: Generazione narrativa principale
 
 **Caratteristiche**:
+
 - Creazione di lore dettagliato con personaggi, ambientazioni e trama
 - Integrazione con template JSON per struttura consistente
 - Generazione di elementi narrativi ricchi e coinvolgenti
 - Adattamento a vincoli di branching factor e profondità
 
 **Implementazione**:
+
 ```python
 class StoryGeneratorAgent:
     def generate_story(self, lore_input: str) -> Lore:
@@ -162,12 +166,14 @@ class StoryGeneratorAgent:
 **Responsabilità**: Conversione narrative in modelli di pianificazione
 
 **Caratteristiche**:
+
 - Traduzione di storie in domini e problemi PDDL
 - Generazione di azioni, predicati e condizioni goal
 - Commenti esplicativi per ogni elemento PDDL
 - Ottimizzazione per solvibilità
 
 **Elementi PDDL Generati**:
+
 - **Domini**: Definizione azioni, predicati, tipi
 - **Problemi**: Stato iniziale, oggetti, goal
 - **Azioni**: move, collect_item, overcome_obstacle, complete_quest
@@ -177,12 +183,14 @@ class StoryGeneratorAgent:
 **Responsabilità**: Validazione e raffinamento iterativo
 
 **Caratteristiche**:
+
 - Analisi di inconsistenze logiche in PDDL
 - Suggerimenti di miglioramento automatici
 - Ciclo di raffinamento iterativo
 - Interazione con utente per approvazione modifiche
 
 **Processo di Riflessione**:
+
 1. Analisi del PDDL generato
 2. Identificazione problemi di solvibilità
 3. Generazione suggerimenti specifici
@@ -193,6 +201,7 @@ class StoryGeneratorAgent:
 **Responsabilità**: Creazione interfacce interattive
 
 **Caratteristiche**:
+
 - Generazione di interfacce Streamlit dinamiche
 - Adattamento UI ai requisiti della storia
 - Integrazione con sistema di navigazione
@@ -244,6 +253,7 @@ graph TD
 ```
 
 **Componenti Generati**:
+
 - Interfaccia web Streamlit personalizzata
 - Sistema di navigazione basato su stati
 - Gestione delle scelte utente
@@ -311,6 +321,7 @@ QuestMasterAI/
 ### 7.2 Moduli Chiave
 
 #### **app.py** - Applicazione Principale
+
 ```python
 class QuestMasterApp:
     def __init__(self, api_key: Optional[str] = None):
@@ -324,6 +335,7 @@ class QuestMasterApp:
 ```
 
 #### **cli.py** - Interfaccia Command Line
+
 - Comando `phase1`: Esecuzione generazione storia
 - Comando `phase2`: Avvio gioco interattivo  
 - Comando `run`: Esecuzione completa pipeline
@@ -353,7 +365,8 @@ docker-compose up --build
 ```
 
 **Accesso all'applicazione**:
-- Web Interface: http://localhost:8501
+
+- Web Interface: <http://localhost:8501>
 - Logs: `docker-compose logs -f questmaster`
 
 ### 8.3 Installazione Locale
@@ -376,11 +389,13 @@ export OPENAI_API_KEY="your-api-key-here"
 ### 8.4 Utilizzo CLI
 
 #### **Esecuzione Completa**
+
 ```bash
 python -m questmaster.cli run
 ```
 
 #### **Esecuzione per Fasi**
+
 ```bash
 # Phase 1: Story Generation
 python -m questmaster.cli phase1 --lore-path data/lore.json
@@ -390,6 +405,7 @@ python -m questmaster.cli phase2
 ```
 
 #### **Opzioni Avanzate**
+
 ```bash
 # Debug mode
 python -m questmaster.cli --debug --log-level DEBUG phase1
@@ -404,6 +420,7 @@ python -m questmaster.cli --help
 ### 8.5 Configurazione Ambiente
 
 #### **Variabili Ambiente**
+
 ```bash
 export OPENAI_API_KEY="sk-your-openai-key"
 export CHATGPT_MODEL="gpt-4o-mini-2024-07-18"
@@ -413,6 +430,7 @@ export FAST_DOWNWARD_TIMEOUT="300"
 ```
 
 #### **File di Configurazione**
+
 Le configurazioni sono gestite tramite `pyproject.toml` e il sistema di settings di Pydantic.
 
 ## 9. Esempi Pratici
@@ -440,6 +458,7 @@ Le configurazioni sono gestite tramite `pyproject.toml` e il sistema di settings
 ### 9.2 PDDL Generato
 
 #### **Domain File**
+
 ```pddl
 (define (domain legacy-quest)
   (:requirements :strips :typing)
@@ -460,6 +479,7 @@ Le configurazioni sono gestite tramite `pyproject.toml` e il sistema di settings
 ```
 
 #### **Problem File**
+
 ```pddl
 (define (problem legacy-quest-scenario)
   (:domain legacy-quest)
@@ -482,6 +502,7 @@ Le configurazioni sono gestite tramite `pyproject.toml` e il sistema di settings
 ### 9.3 Output del Sistema
 
 #### **Phase 1 Output**
+
 ```
 🚀 Starting Phase 1: Story Generation
 ✅ Phase 1 completed successfully!
@@ -490,6 +511,7 @@ Plan length: 8 steps
 ```
 
 #### **Plan Generato**
+
 ```
 1. move hero village forest
 2. collect_item hero sword forest  
@@ -516,6 +538,7 @@ Il sistema genera automaticamente un'interfaccia Streamlit che include:
 Il progetto QuestMasterAI ha raggiunto con successo gli obiettivi prefissati:
 
 #### **Obiettivi Tecnici**
+
 - ✅ **Architettura Multi-Agente**: Sistema modulare e estensibile
 - ✅ **Integrazione PDDL**: Validazione logica attraverso classical planning
 - ✅ **Pipeline Automatizzata**: Processo end-to-end completamente automatico
@@ -523,6 +546,7 @@ Il progetto QuestMasterAI ha raggiunto con successo gli obiettivi prefissati:
 - ✅ **Containerizzazione**: Deployment semplificato con Docker
 
 #### **Obiettivi di Qualità**
+
 - ✅ **Robustezza**: Gestione errori e recovery automatico
 - ✅ **Scalabilità**: Architettura predisposta per estensioni
 - ✅ **Manutenibilità**: Codice ben strutturato e documentato
@@ -532,18 +556,23 @@ Il progetto QuestMasterAI ha raggiunto con successo gli obiettivi prefissati:
 ### 10.2 Innovazioni Introdotte
 
 #### **Integrazione AI Generativa + Classical Planning**
+
 L'aspetto più innovativo del progetto è l'integrazione seamless tra:
+
 - **LLM per creatività**: Generazione di narrative coinvolgenti
 - **PDDL per logica**: Garanzia di coerenza e solvibilità
 - **Ciclo di raffinamento**: Miglioramento iterativo automatico
 
 #### **Sistema Multi-Agente Specializzato**
+
 Ogni agente ha responsabilità specifiche:
+
 - **Separazione delle responsabilità**: Maggiore manutenibilità
 - **Specializzazione**: Ottimizzazione per task specifici  
 - **Coordinazione**: Collaborazione efficace tra agenti
 
 #### **Validation-Driven Development**
+
 - **Feedback immediato**: Validazione continua della qualità
 - **Auto-correzione**: Capacità di auto-miglioramento
 - **Garanzie formali**: Uso di classical planning per verifica
@@ -551,12 +580,14 @@ Ogni agente ha responsabilità specifiche:
 ### 10.3 Limitazioni Attuali
 
 #### **Limitazioni Tecniche**
+
 - **Dipendenza da API esterne**: Richiede connessione internet e API key
 - **Tempo di elaborazione**: Generazione può richiedere diversi minuti
 - **Complessità PDDL**: Limitato a domini relativamente semplici
 - **Lingua**: Attualmente ottimizzato principalmente per italiano
 
 #### **Limitazioni Funzionali**
+
 - **Personalizzazione limitata**: Template predefiniti per la struttura
 - **Interazione utente**: Interfaccia principalmente read-only in Phase 2
 - **Multimedia**: Supporto limitato per immagini e audio
@@ -567,6 +598,7 @@ Ogni agente ha responsabilità specifiche:
 #### **Miglioramenti a Breve Termine**
 
 **Enhanced User Interaction**
+
 ```python
 # Implementazione di feedback loop utente
 class InteractiveRefinement:
@@ -578,11 +610,13 @@ class InteractiveRefinement:
 ```
 
 **Multi-language Support**
+
 - Estensione a inglese, francese, spagnolo
 - Template localizzati per diverse culture narrative
 - Agenti specializzati per stili narrativi regionali
 
 **Advanced PDDL Features**
+
 - Supporto per temporal planning
 - Conditional effects e derived predicates
 - Optimization objectives per qualità narrativa
@@ -590,16 +624,19 @@ class InteractiveRefinement:
 #### **Miglioramenti a Medio Termine**
 
 **Visual Story Generation**
+
 - Integrazione con DALL-E per generazione immagini
 - Interfaccia grafica avanzata con Streamlit
 - Supporto per mappe interattive
 
 **Persistent Game State**
+
 - Database per salvataggio progressi
 - Sistema di account utente
 - Multiplayer collaborative stories
 
 **Advanced AI Agents**
+
 - Character development agent per personaggi dinamici
 - Dialogue generation agent per conversazioni
 - Emotion tracking agent per coinvolgimento emotivo
@@ -607,16 +644,19 @@ class InteractiveRefinement:
 #### **Visione a Lungo Termine**
 
 **Educational Platform**
+
 - Integrazione in ambienti educativi
 - Strumenti per insegnanti
 - Analytics per apprendimento
 
 **Commercial Applications**
+
 - Sistema di authoring per game designer
 - Template marketplace
 - API per integrazione in giochi esistenti
 
 **Research Contributions**
+
 - Pubblicazioni scientifiche su AI + Planning
 - Benchmark per narrative generation
 - Open source community development
@@ -624,16 +664,19 @@ class InteractiveRefinement:
 ### 10.5 Impatto e Valore del Progetto
 
 #### **Valore Accademico**
+
 - **Ricerca Innovativa**: Combinazione unica di tecnologie
 - **Contributo Scientifico**: Metodologia riproducibile
 - **Formazione**: Esempio pratico di sistemi AI complessi
 
 #### **Valore Pratico**
+
 - **Strumento Reale**: Utilizzabile per creazione contenuti
 - **Framework Estensibile**: Base per progetti futuri
 - **Best Practices**: Esempio di sviluppo software moderno
 
 #### **Valore Sociale**
+
 - **Democratizzazione**: Accessibilità alla creazione narrativa
 - **Educazione**: Strumento per apprendimento interattivo
 - **Creatività**: Amplificazione delle capacità creative umane
