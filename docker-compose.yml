@@ -1,0 +1,48 @@
+services:
+  questmaster:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - CHATGPT_MODEL=${CHATGPT_MODEL:-gpt-4o-mini-2024-07-18}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - DEBUG=${DEBUG:-False}
+      - STREAMLIT_HOST=0.0.0.0
+      - STREAMLIT_PORT=8501
+      - FAST_DOWNWARD_TIMEOUT=${FAST_DOWNWARD_TIMEOUT:-300}
+    volumes:
+      - ./data:/app/data
+      - ./resources:/app/resources
+      - questmaster_logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  questmaster-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - CHATGPT_MODEL=${CHATGPT_MODEL:-gpt-4o-mini-2024-07-18}
+      - LOG_LEVEL=DEBUG
+      - DEBUG=True
+      - STREAMLIT_HOST=0.0.0.0
+      - STREAMLIT_PORT=8501
+    volumes:
+      - .:/app
+      - questmaster_logs:/app/logs
+    command: ["python", "-m", "questmaster.cli", "frontend"]
+    profiles:
+      - dev
+
+volumes:
+  questmaster_logs:

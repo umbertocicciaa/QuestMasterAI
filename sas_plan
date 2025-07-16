@@ -1,4 +1,3 @@
-(venture_to_cave )
-(confront_serpent )
-(open_chest )
-; cost = 3 (unit cost)
+(collect_item hero quest_item village)
+(complete_quest hero)
+; cost = 2 (unit cost)
