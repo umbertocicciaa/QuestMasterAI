@@ -86,42 +86,58 @@ fi
 
 echo -e "${GREEN}✅ All requirements satisfied!${NC}"
 
-# Ask user what to do
-echo ""
-echo "What would you like to do?"
-echo "1) Run full pipeline (Phase 1 + Phase 2)"
-echo "2) Run Phase 1 only (PDDL generation)"
-echo "3) Run Phase 2 only (Story generation)"
-echo "4) Start frontend (if already generated)"
-echo "5) Check requirements only"
+# Interactive menu loop
+while true; do
+    echo ""
+    echo "What would you like to do?"
+    echo "1) Run full pipeline (Phase 1 + Phase 2)"
+    echo "2) Run Phase 1 only (PDDL generation)"
+    echo "3) Run Phase 2 only (Story generation)"
+    echo "4) Start frontend (if already generated)"
+    echo "5) Check requirements only"
+    echo "6) Exit"
 
-read -p "Enter your choice (1-5): " choice
+    read -p "Enter your choice (1-6): " choice
 
-case $choice in
-    1)
-        echo -e "${GREEN}🚀 Running full QuestMaster pipeline...${NC}"
-        python -m questmaster.cli run
-        ;;
-    2)
-        echo -e "${GREEN}📝 Running Phase 1: PDDL Generation...${NC}"
-        python -m questmaster.cli phase1
-        ;;
-    3)
-        echo -e "${GREEN}🎮 Running Phase 2: Story Generation...${NC}"
-        python -m questmaster.cli phase2
-        ;;
-    4)
-        echo -e "${GREEN}🌐 Starting Streamlit frontend...${NC}"
-        python -m questmaster.cli frontend
-        ;;
-    5)
-        echo -e "${GREEN}🔍 Checking requirements...${NC}"
-        python -m questmaster.cli check
-        ;;
-    *)
-        echo -e "${RED}❌ Invalid choice. Please run the script again.${NC}"
-        exit 1
-        ;;
-esac
-
-echo -e "${GREEN}🎉 Done!${NC}"
+    case $choice in
+        1)
+            echo -e "${GREEN}🚀 Running full QuestMaster pipeline...${NC}"
+            python -m questmaster.cli run
+            echo -e "${GREEN}✅ Full pipeline completed!${NC}"
+            ;;
+        2)
+            echo -e "${GREEN}📝 Running Phase 1: PDDL Generation...${NC}"
+            python -m questmaster.cli phase1
+            echo -e "${GREEN}✅ Phase 1 completed!${NC}"
+            ;;
+        3)
+            echo -e "${GREEN}🎮 Running Phase 2: Story Generation...${NC}"
+            python -m questmaster.cli phase2
+            echo -e "${GREEN}✅ Phase 2 completed!${NC}"
+            ;;
+        4)
+            echo -e "${GREEN}🌐 Starting Streamlit frontend...${NC}"
+            echo -e "${YELLOW}⚠️  Frontend will run in the background. Use Ctrl+C to stop it and return to menu.${NC}"
+            python -m questmaster.cli frontend &
+            FRONTEND_PID=$!
+            wait $FRONTEND_PID
+            echo -e "${GREEN}✅ Frontend stopped!${NC}"
+            ;;
+        5)
+            echo -e "${GREEN}🔍 Checking requirements...${NC}"
+            python -m questmaster.cli check
+            echo -e "${GREEN}✅ Requirements check completed!${NC}"
+            ;;
+        6)
+            echo -e "${GREEN}👋 Goodbye!${NC}"
+            exit 0
+            ;;
+        *)
+            echo -e "${RED}❌ Invalid choice. Please select 1-6.${NC}"
+            ;;
+    esac
+    
+    echo ""
+    echo -e "${BLUE}Press Enter to continue...${NC}"
+    read
+done
