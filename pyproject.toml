@@ -9,7 +9,9 @@ description = "QuestMaster: Agentic AI for Interactive Storytelling"
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [
-    {name = "Umberto Ciccia", email = "umberto.ciccia@example.com"}
+    {name = "Umberto Doemnico Ciccia"},
+    {name = "Salvatore Chiricosta"},
+    {name = "Giovanni Ferraro"},
 ]
 keywords = ["ai", "storytelling", "pddl", "planning", "interactive-fiction"]
 classifiers = [

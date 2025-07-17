@@ -62,10 +62,11 @@ echo "1) Build and run QuestMaster (full pipeline)"
 echo "2) Build Docker image only"
 echo "3) Run existing image"
 echo "4) Run in development mode"
-echo "5) Stop and remove containers"
-echo "6) View logs"
+echo "5) Run interactive CLI"
+echo "6) Stop and remove containers"
+echo "7) View logs"
 
-read -p "Enter your choice (1-6): " choice
+read -p "Enter your choice (1-7): " choice
 
 case $choice in
     1)
@@ -86,11 +87,15 @@ case $choice in
         docker-compose --profile dev up questmaster-dev
         ;;
     5)
+        echo -e "${GREEN}💻 Running interactive CLI...${NC}"
+        docker-compose --profile cli run --rm questmaster-cli
+        ;;
+    6)
         echo -e "${YELLOW}🛑 Stopping and removing containers...${NC}"
         docker-compose down
         echo -e "${GREEN}✅ Cleanup complete!${NC}"
         ;;
-    6)
+    7)
         echo -e "${BLUE}📋 Viewing logs...${NC}"
         docker-compose logs -f
         ;;

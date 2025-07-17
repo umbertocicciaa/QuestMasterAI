@@ -16,7 +16,9 @@ services:
     volumes:
       - ./data:/app/data
       - ./resources:/app/resources
+      - ./.env:/app/.env
       - questmaster_logs:/app/logs
+    command: ["python", "-m", "questmaster.cli", "frontend"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
       interval: 30s
@@ -44,5 +46,31 @@ services:
     profiles:
       - dev
 
+  questmaster-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - CHATGPT_MODEL=${CHATGPT_MODEL:-gpt-4o-mini-2024-07-18}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - DEBUG=${DEBUG:-False}
+      - FAST_DOWNWARD_TIMEOUT=${FAST_DOWNWARD_TIMEOUT:-300}
+    volumes:
+      - ./data:/app/data
+      - ./resources:/app/resources
+      - ./.env:/app/.env
+      - questmaster_logs:/app/logs
+    command: ["./start.sh"]
+    stdin_open: true
+    tty: true
+    profiles:
+      - cli
+
 volumes:
   questmaster_logs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./logs
