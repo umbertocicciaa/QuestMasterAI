@@ -27,7 +27,7 @@ src/questmaster/
 
 ## 🚀 Quick Start
 
-## 🔧 Configuration
+### 🔧 Configuration
 
 Configuration is managed through environment variables and the `src/questmaster/core/config.py` file:
 
@@ -252,8 +252,6 @@ Use the output from Phase 1 to build a web-based interactive adventure game.
 - Create a modern Streamlit web interface
 - Incorporate state-based navigation and choice tracking
 - Provide game statistics and progress tracking
-
----
 
 ### Architecture
 
