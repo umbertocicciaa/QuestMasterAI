@@ -27,6 +27,22 @@ src/questmaster/
 
 ## 🚀 Quick Start
 
+## 🔧 Configuration
+
+Configuration is managed through environment variables and the `src/questmaster/core/config.py` file:
+
+You must configure environment variable with this template [Env template](.env.template)
+
+```python
+# Required
+OPENAI_API_KEY=your-openai-api-key
+
+# Optional
+OPENAI_MODEL=gpt-4  # Default model
+LOG_LEVEL=INFO      # Logging level
+DEBUG=false         # Debug mode
+```
+
 ### Option 1: Docker (Recommended)
 
 1. **Setup and Run**:
@@ -42,7 +58,7 @@ src/questmaster/
    ```
 
 3. **Access the application**:
-   - Web Interface: <http://localhost:8501>
+   - Web Interface: <http://localhost:8501> (if frontend is generated and started)
    - API: <http://localhost:8000>
 
 ### Option 2: Local Development
@@ -70,7 +86,7 @@ src/questmaster/
    python -m questmaster.cli phase2  # Interactive frontend
    ```
 
-## 🧠 AI Agents
+## 🧠 AI Agents description
 
 ### Story Generator Agent
 
@@ -95,20 +111,6 @@ src/questmaster/
 - Creates dynamic Streamlit interfaces
 - Generates interactive game components
 - Adapts UI to story requirements
-
-## 🔧 Configuration
-
-Configuration is managed through environment variables and the `src/questmaster/core/config.py` file:
-
-```python
-# Required
-OPENAI_API_KEY=your-openai-api-key
-
-# Optional
-OPENAI_MODEL=gpt-4  # Default model
-LOG_LEVEL=INFO      # Logging level
-DEBUG=false         # Debug mode
-```
 
 ## 📊 Usage Examples
 
@@ -198,31 +200,6 @@ QuestMasterAI/
 └── start.sh               # Local setup script
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes with proper testing
-4. Submit a pull request
-
-## 📜 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
-
-- **Fast Downward** planning system
-- **OpenAI** for GPT models
-- **Streamlit** for web interface framework
-- **Pydantic** for data validation
-- 🔄 **Intelligent Reflection**: Automatically fixes PDDL validation issues
-- 🎮 **Interactive Web Interface**: Beautiful Streamlit frontend for story interaction
-- 🐳 **Docker Support**: Easy deployment with containerization
-- 📦 **Modern Architecture**: Clean, maintainable codebase with proper separation of concerns
-- 🛡️ **Type Safety**: Full type hints and validation with Pydantic
-- 📊 **Structured Logging**: Rich logging with structlog
-- ⚡ **CLI Interface**: Command-line tools for all operations
-
 ---
 
 ## 📌 Phase 1: Story Generation
@@ -278,240 +255,6 @@ Use the output from Phase 1 to build a web-based interactive adventure game.
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- **Python 3.9+**
-- **OpenAI API Key**
-- **Git**
-- **CMake** (for Fast Downward)
-
-### Option 1: Local Installation
-
-1. **Clone the Repository**
-
-    ```bash
-    git clone https://github.com/umbertocicciaa/QuestMasterAI.git questmaster
-    cd questmaster
-    ```
-
-2. **Install System Dependencies**
-
-   - **macOS:**  
-
-    ```bash
-    brew install cmake
-    ```
-
-   - **Linux (Debian/Ubuntu):**  
-
-    ```bash
-    sudo apt-get install cmake build-essential
-    ```
-
-   - **Windows:**  
-     [Download and install CMake](https://cmake.org/download/)
-
-3. **Set Up Environment**
-
-    ```bash
-    # Copy environment template
-    cp .env.template .env
-    
-    # Edit .env with your OpenAI API key
-    nano .env  # or your preferred editor
-    ```
-
-4. **Run Setup Script**
-
-    ```bash
-    chmod +x start.sh
-    ./start.sh
-    ```
-
-   The script will:
-   - Create a virtual environment
-   - Install Python dependencies
-   - Download and build Fast Downward (if needed)
-   - Check system requirements
-   - Offer interactive menu options
-
-### Option 2: Docker Installation
-
-1. **Prerequisites**
-   - [Docker](https://docs.docker.com/get-docker/)
-   - [Docker Compose](https://docs.docker.com/compose/install/)
-
-2. **Clone and Setup**
-
-    ```bash
-    git clone https://github.com/umbertocicciaa/QuestMasterAI.git questmaster
-    cd questmaster
-    
-    # Copy environment template and edit with your API key
-    cp .env.template .env
-    nano .env
-    ```
-
-3. **Run Docker Setup**
-
-    ```bash
-    chmod +x docker-setup.sh
-    ./docker-setup.sh
-    ```
-
-   The script provides options to:
-   - Build and run the full application
-   - Run development mode
-   - View logs
-   - Manage containers
-
----
-
-## 🎯 Usage
-
-### Command Line Interface
-
-QuestMaster provides a rich CLI for all operations:
-
-```bash
-# Check system requirements
-python -m questmaster.cli check
-
-# Run full pipeline (Phase 1 + Phase 2)
-python -m questmaster.cli run
-
-# Run Phase 1 only (PDDL generation)
-python -m questmaster.cli phase1
-
-# Run Phase 2 only (Story generation)
-python -m questmaster.cli phase2
-
-# Start the web interface
-python -m questmaster.cli frontend
-
-# Get help
-python -m questmaster.cli --help
-```
-
-### Custom Lore Files
-
-You can provide custom lore files:
-
-```bash
-python -m questmaster.cli run --lore-path /path/to/your/lore.json
-```
-
-### Development
-
-For development with auto-reload:
-
-```bash
-# Install in development mode
-pip install -e .
-
-# Run with debug logging
-python -m questmaster.cli --debug --log-level DEBUG run
-```
-
----
-
-## 📁 Project Structure
-
-```
-questmaster/
-├── src/questmaster/           # Main application package
-│   ├── agents/               # AI agents (PDDL, reflection, story, frontend)
-│   ├── core/                 # Core functionality (config, logging, exceptions)
-│   ├── models/               # Data models and schemas
-│   ├── services/             # Service layer (LLM, planner, file operations)
-│   ├── ui/                   # Streamlit UI components
-│   ├── utils/                # Utility functions
-│   ├── app.py                # Main application orchestrator
-│   └── cli.py                # Command-line interface
-├── data/                     # Data files (lore, PDDL, stories)
-├── resources/                # Example files and templates
-├── fast-downward-24.06.1/    # Fast Downward planner (auto-downloaded)
-├── tests/                    # Test suite
-├── docker-setup.sh           # Docker setup script
-├── start.sh                  # Local setup script
-├── Dockerfile                # Docker configuration
-├── docker-compose.yml        # Docker Compose configuration
-├── pyproject.toml            # Project configuration
-└── requirements.txt          # Python dependencies
-```
-
----
-
-## 🐳 Docker Deployment
-
-### Quick Start
-
-```bash
-# Build and run
-docker-compose up --build
-
-# Run in background
-docker-compose up -d
-
-# View logs
-docker-compose logs -f
-
-# Stop
-docker-compose down
-```
-
-### Environment Variables
-
-Configure via `.env` file:
-
-```env
-OPENAI_API_KEY=your_openai_api_key_here
-CHATGPT_MODEL=gpt-4o-mini-2024-07-18
-LOG_LEVEL=INFO
-DEBUG=False
-STREAMLIT_PORT=8501
-STREAMLIT_HOST=0.0.0.0
-FAST_DOWNWARD_TIMEOUT=300
-```
-
-### Production Deployment
-
-For production, consider:
-
-1. Using a reverse proxy (nginx)
-2. Setting up SSL certificates
-3. Implementing proper logging aggregation
-4. Using Docker secrets for API keys
-5. Setting up health monitoring
-
----
-
-## 🛠️ Development
-
-### Setting Up Development Environment
-
-```bash
-# Clone and install
-git clone https://github.com/umbertocicciaa/QuestMasterAI.git
-cd QuestMasterAI
-pip install -e ".[dev]"
-
-# Install pre-commit hooks
-pre-commit install
-
-# Run tests
-pytest
-
-# Run type checking
-mypy src/
-
-# Format code
-black src/
-ruff check src/
-```
-
 ### Architecture
 
 The application follows a clean architecture pattern:
@@ -533,24 +276,6 @@ The application follows a clean architecture pattern:
 
 ---
 
-## 🧪 Testing
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage
-pytest --cov=src/questmaster
-
-# Run specific test file
-pytest tests/test_models.py
-
-# Run with verbose output
-pytest -v
-```
-
----
-
 ## 📊 Monitoring and Logging
 
 QuestMaster uses structured logging with rich console output:
@@ -568,24 +293,6 @@ Logs include:
 - Rich console formatting
 - Contextual information
 - Performance metrics
-
----
-
-## 🔧 Configuration
-
-Configuration is managed through:
-
-1. **Environment variables** (`.env` file)
-2. **Pydantic settings** (`src/questmaster/core/config.py`)
-3. **CLI arguments** (override environment)
-
-### Key Settings
-
-- `OPENAI_API_KEY`: Your OpenAI API key
-- `CHATGPT_MODEL`: GPT model to use
-- `LOG_LEVEL`: Logging verbosity
-- `FAST_DOWNWARD_PATH`: Path to Fast Downward installation
-- `STREAMLIT_PORT`: Web interface port
 
 ---
 
@@ -647,12 +354,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## � Acknowledgments
+## 🙏 Acknowledgments
 
-- [Fast Downward](https://www.fast-downward.org/) for PDDL planning
-- [OpenAI](https://openai.com/) for language models
-- [Streamlit](https://streamlit.io/) for the web interface
-- [Pydantic](https://pydantic.dev/) for data validation
+- **Fast Downward** planning system
+- **OpenAI** for GPT models
+- **Streamlit** for web interface framework
+- **Pydantic** for data validation
+- 🔄 **Intelligent Reflection**: Automatically fixes PDDL validation issues
+- 🎮 **Interactive Web Interface**: Beautiful Streamlit frontend for story interaction
+- 🐳 **Docker Support**: Easy deployment with containerization
+- 📦 **Modern Architecture**: Clean, maintainable codebase with proper separation of concerns
+- 🛡️ **Type Safety**: Full type hints and validation with Pydantic
+- 📊 **Structured Logging**: Rich logging with structlog
+- ⚡ **CLI Interface**: Command-line tools for all operations
 
 ---
 
@@ -670,64 +384,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Render interactive choices and dynamic storytelling
 
 ---
-
-## 🚀 Getting Started
-
-### Installation & Setup
-
-1. **Clone the Repository**
-
-    ```bash
-     git clone https://github.com/umbertocicciaa/QuestMasterAI.git questmaster
-     cd questmaster
-    ```
-
-2. **Install CMake**
-   - **macOS:**  
-
-    ```bash
-     brew install cmake
-    ```
-
-   - **Linux (Debian/Ubuntu):**  
-
-    ```bash
-     sudo apt-get install cmake
-    ```
-
-   - **Windows:**  
-     [Download and install CMake](https://cmake.org/download/).
-
-3. **Download & Set Up Fast Downward Planner**
-   - [Download Fast Downward](https://www.fast-downward.org/latest/releases/24.06/).
-   - Extract it into the project root: `questmaster/fast-downward-24.06.1`.
-   - **Build Fast Downward:**
-
-      ```bash
-       cd fast-downward-24.06.1
-       python build.py
-       cd ..
-      ```
-
-4. **Set Up Python Virtual Environment (Recommended)**
-
-    ```bash
-     python3 -m venv .venv
-     # Activate on macOS/Linux
-     source .venv/bin/activate
-     # Activate on Windows
-     .venv\Scripts\activate
-    ```
-
-5. **Install Python Dependencies**
-
-    ```bash
-     pip install -r requirements.txt
-    ```
-
-6. **Start application**
-
-    ```bash
-     chmod u+x start.sh
-     ./start.sh
-    ```
