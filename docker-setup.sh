@@ -84,11 +84,11 @@ case $choice in
         ;;
     4)
         echo -e "${GREEN}🛠️  Running in development mode...${NC}"
-        docker-compose --profile dev up questmaster-dev
+        docker-compose --profile dev up -p 8501:8501 questmaster-dev
         ;;
     5)
         echo -e "${GREEN}💻 Running interactive CLI...${NC}"
-        docker-compose --profile cli run --rm questmaster-cli
+        docker-compose --profile cli run --rm -p 8501:8501 questmaster-cli 
         ;;
     6)
         echo -e "${YELLOW}🛑 Stopping and removing containers...${NC}"
